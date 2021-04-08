@@ -89,8 +89,20 @@ public class TrafficLightGui extends JFrame implements ActionListener {
 
                 try {
                     if (yellow.isOn) {
-                        Thread.sleep(yellowIntervall);
-
+                        for (int i = 3; i > 0; i--) {
+                            yellow.turnOn(true);
+                            try {
+                                Thread.sleep(yellowIntervall);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            yellow.turnOn(false);
+                            try {
+                                Thread.sleep(yellowIntervall);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
                     } else {
                         Thread.sleep(intervall);
                     }
@@ -126,25 +138,9 @@ public class TrafficLightGui extends JFrame implements ActionListener {
             yellow.turnOn(false);
         }
         else if(trafficLightColor.equals(TrafficLightColor.YELLOW)){
+            yellow.turnOn(true);
             red.turnOn(false);
             green.turnOn(false);
-            if(isAutoMode) {
-                for (int i = 3; i > 0; i--) {
-                    yellow.turnOn(true);
-                    try {
-                        Thread.sleep(yellowIntervall);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    yellow.turnOn(false);
-                    try {
-                        Thread.sleep(yellowIntervall);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            yellow.turnOn(true);
         }
         else if(trafficLightColor.equals(TrafficLightColor.RED)){
             red.turnOn(true);
