@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+//REPO: https://github.com/GabrielHuebner/trafficlight2021.git
 public class TrafficLightGui extends JFrame implements ActionListener {
 
     public static final String ACTION_COMMAND_NEXT = "next";
@@ -126,18 +126,25 @@ public class TrafficLightGui extends JFrame implements ActionListener {
             yellow.turnOn(false);
         }
         else if(trafficLightColor.equals(TrafficLightColor.YELLOW)){
-            yellow.turnOn(true);
             red.turnOn(false);
             green.turnOn(false);
-            /*while (trafficLightCtrl.getCurrentState().equals(trafficLightCtrl.getYellowState())){
-                yellow.turnOn(true);
-                try {
-                    Thread.sleep(yellowIntervall);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            if(isAutoMode) {
+                for (int i = 3; i > 0; i--) {
+                    yellow.turnOn(true);
+                    try {
+                        Thread.sleep(yellowIntervall);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    yellow.turnOn(false);
+                    try {
+                        Thread.sleep(yellowIntervall);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
-                yellow.turnOn(false);
-            }*/
+            }
+            yellow.turnOn(true);
         }
         else if(trafficLightColor.equals(TrafficLightColor.RED)){
             red.turnOn(true);
