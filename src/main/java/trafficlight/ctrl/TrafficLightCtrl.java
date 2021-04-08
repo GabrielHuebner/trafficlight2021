@@ -33,12 +33,29 @@ public class TrafficLightCtrl {
         return instance;
     }
 
+    public static State stateFactory(String name){
+        State state = null;
+        if(name.equals("off")){
+            state = new OffState();
+        }
+        if(name.equals("green")){
+            state = new GreenState();
+        }
+        if(name.equals("yellow")){
+            state = new YellowState();
+        }
+        if(name.equals("red")){
+            state = new RedState();
+        }
+        return state;
+    }
+
     private void initStates() {
         //TODO create the states and set current and previous state
-        greenState = new GreenState();
-        redState = new RedState();
-        yellowState = new YellowState();
-        currentState = new OffState();
+        greenState = stateFactory("green");
+        redState = stateFactory("red");
+        yellowState = stateFactory("yellow");
+        currentState = stateFactory("off");
     }
 
     public State getGreenState() {
