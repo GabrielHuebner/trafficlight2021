@@ -76,7 +76,24 @@ public class TrafficLightGui extends JFrame implements ActionListener {
     public void run() {
         while (!doExit) {
             try {
-                Thread.sleep(100);
+                if (yellow.isOn) {
+                    while (trafficLightCtrl.getCurrentState().equals(trafficLightCtrl.getYellowState()) && !isAutoMode) {
+                        yellow.turnOn(true);
+                        try {
+                            Thread.sleep(yellowIntervall);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        yellow.turnOn(false);
+                        try {
+                            Thread.sleep(yellowIntervall);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                } else {
+                    Thread.sleep(intervall);
+                }
             } catch (InterruptedException e) {
                 JOptionPane pane = new JOptionPane();
                 JDialog dialog = pane.createDialog(this,"Traffic Light Problem");

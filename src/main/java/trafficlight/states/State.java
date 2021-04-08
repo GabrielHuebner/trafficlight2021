@@ -3,6 +3,6 @@ package trafficlight.states;
 import trafficlight.ctrl.TrafficLightCtrl;
 
 public interface State {
-     void nextState(TrafficLightCtrl ctrl);
+     void nextState();
      TrafficLightColor getState();
 }

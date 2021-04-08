@@ -33,19 +33,19 @@ public class TrafficLightCtrl {
         return instance;
     }
 
-    public static State stateFactory(String name){
+    public State stateFactory(String name){
         State state = null;
         if(name.equals("off")){
-            state = new OffState();
+            state = new OffState(this);
         }
         if(name.equals("green")){
-            state = new GreenState();
+            state = new GreenState(this);
         }
         if(name.equals("yellow")){
-            state = new YellowState();
+            state = new YellowState(this);
         }
         if(name.equals("red")){
-            state = new RedState();
+            state = new RedState(this);
         }
         return state;
     }
@@ -56,6 +56,7 @@ public class TrafficLightCtrl {
         redState = stateFactory("red");
         yellowState = stateFactory("yellow");
         currentState = stateFactory("off");
+        previousState = currentState;
     }
 
     public State getGreenState() {
@@ -92,8 +93,7 @@ public class TrafficLightCtrl {
 
     public void nextState() {
         //TODO handle GUi request and update GUI
-        previousState = currentState;
-        currentState.nextState(this);
+        currentState.nextState();
         gui.setLight(currentState.getState());
     }
 }
